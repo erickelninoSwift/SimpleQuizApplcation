@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
     var Questions:[String] = ["Who is Erick Favourite Soccer Player?","What does TUT stands for ?","How many Players Are allowed in a soccer field?","Who is the ballon D'or 2019","what is Erick NickName?","Which Language is Used For IOS Apps?","Which language is used fro Android Apps","What is erick favourite Color?","Erick Favourite Soccer team in Spain ?"]
@@ -57,6 +58,32 @@ class ViewController: UIViewController {
     
     @IBAction func buttonPressed(_ sender:AnyObject)
     {
+        if sender.tag == RightAnswer
+        {
+            print("Right Answer")
+            scoreRight += 1
+        }else
+        {
+            print("You are wrong")
+        }
+        
+        if CurrentQuestion < Questions.count
+        {
+            nextQuestion()
+        }else
+        {
+            let alert = UIAlertController(title: "Score", message: "Your final Score is : \(scoreRight)/9 /n Do you want to Restart ?", preferredStyle:.alert)
+            let action = UIAlertAction(title: "Yes", style: .default) { (Action) in
+                self.reset()
+                self.nextQuestion()
+            }
+            let action2 = UIAlertAction(title: "No", style: UIAlertAction.Style.default) { (Actions) in
+                self.performSegue(withIdentifier: "display", sender: self)
+            }
+            alert.addAction(action)
+            alert.addAction(action2)
+            self.present(alert, animated: true, completion: nil)
+        }
         
     }
     
@@ -65,7 +92,8 @@ class ViewController: UIViewController {
         if segue.identifier == "display"
         {
             let secondVC = segue.destination as! DisplayViewController
-            secondVC.messageToDiplay = "Great to have you answer to Erick Questions Return To play Again"
+            secondVC.messageToDiplay = "Thank you for you Time"
+            reset()
         }
     }
     
