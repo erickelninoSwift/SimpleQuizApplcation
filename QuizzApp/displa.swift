@@ -31,7 +31,28 @@ class ViewController: UIViewController {
     func nextQuestion()
     {
         
+        QuestionLabel.text = Questions[CurrentQuestion]
+        RightAnswer = Int.random(in: 1...3)
+        var button:UIButton  = UIButton()
         
+        var i:Int = 1
+        
+        for x in 1...3
+        {
+            button = view.viewWithTag(x) as! UIButton
+            
+            if x == RightAnswer
+            {
+                button.setTitle(Answers[CurrentQuestion][0], for: UIControl.State.normal)
+                
+            }else
+            {
+                button.setTitle(Answers[CurrentQuestion][i], for: UIControl.State.normal)
+                i = 2
+            }
+            
+        }
+        CurrentQuestion += 1
     }
     
     @IBAction func buttonPressed(_ sender:AnyObject)
